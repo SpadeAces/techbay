@@ -28,11 +28,7 @@ class MVVMApplication : Application(), KodeinAware {
         bind() from singleton { AppDatabase(instance()) }
         bind() from singleton { PreferenceProvider(instance()) }
         bind() from singleton { PostsRepository(instance(), instance(), instance()) }
-//        bind() from provider { AuthViewModelFactory(instance()) }
-//        bind() from provider { ProfileViewModelFactory(instance()) }
         bind() from provider{ PostsViewModelFactory(instance()) }
 
-
     }
-
 }
