@@ -1,7 +1,6 @@
 package com.ansar.techbay.data.network
 
 import com.ansar.techbay.data.db.entities.Posts
-import com.ansar.techbay.data.network.responces.PostsResponse
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
