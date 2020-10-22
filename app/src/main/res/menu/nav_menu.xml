@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:title="Posts"
+            android:id="@+id/postFragment"
+    />
+
+    <item
+            android:title="Comments"
+            android:id="@+id/commentsFragment"
+    />
+
+</menu>
