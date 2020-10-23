@@ -14,8 +14,11 @@ import com.ansar.techbay.data.db.entities.Posts
 import com.ansar.techbay.util.Coroutines
 import com.ansar.techbay.util.hide
 import com.ansar.techbay.util.show
+import com.ansar.techbay.util.snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.item_post.*
+import kotlinx.android.synthetic.main.item_post.view.*
 import kotlinx.android.synthetic.main.posts_fragment.*
 
 import org.kodein.di.KodeinAware
@@ -53,6 +56,10 @@ class PostsFragment : Fragment(), KodeinAware {
     private fun initRecyclerView(postItem: List<PostItem>) {
         val mAdapter = GroupAdapter<ViewHolder>().apply {
             addAll(postItem)
+            setOnItemClickListener { item, view ->
+
+                view.snackbar(view.post_id.text.toString())
+            }
         }
 
         recyclerview.apply {
@@ -61,6 +68,7 @@ class PostsFragment : Fragment(), KodeinAware {
             this.adapter = mAdapter
         }
     }
+
 
     private fun List<Posts>.toQuoteItem() : List<PostItem>{
         return this.map {

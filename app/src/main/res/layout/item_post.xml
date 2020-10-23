@@ -35,8 +35,7 @@
                 android:text="@{`-` + posts.body}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="italic"
-                tools:text="- Belal Khan" />
+                android:textStyle="italic" />
 
             <TextView
                     android:layout_marginTop="7dp"
@@ -44,7 +43,14 @@
                     android:background="@color/colorPrimary"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
-
+            <TextView
+                android:id="@+id/post_id"
+                android:visibility="invisible"
+                android:layout_marginTop="7dp"
+                android:text="@{``+posts.id}"
+                android:layout_below="@id/post_body"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </layout>
