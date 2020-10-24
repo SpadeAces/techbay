@@ -1,6 +1,7 @@
 package com.ansar.techbay.ui.Posts
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,13 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ansar.techbay.R
 import com.ansar.techbay.data.db.entities.Posts
+import com.ansar.techbay.data.preferences.PreferenceProvider
+import com.ansar.techbay.ui.comments.CommentsActivity
 import com.ansar.techbay.util.Coroutines
 import com.ansar.techbay.util.hide
 import com.ansar.techbay.util.show
 import com.ansar.techbay.util.snackbar
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.item_post.*
 import kotlinx.android.synthetic.main.item_post.view.*
 import kotlinx.android.synthetic.main.posts_fragment.*
 
@@ -30,6 +32,9 @@ class PostsFragment : Fragment(), KodeinAware {
     override val kodein by kodein()
     private val factory: PostsViewModelFactory by instance()
     private lateinit var viewModel: PostsViewModel
+    private val POSTID: String = "PostId"
+    private val POSTTITLE: String = "PostTitle"
+    private val POSTBODY: String = "PostBody"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +62,8 @@ class PostsFragment : Fragment(), KodeinAware {
         val mAdapter = GroupAdapter<ViewHolder>().apply {
             addAll(postItem)
             setOnItemClickListener { item, view ->
-
+                openCommentsForPost(view.post_id.text.toString(),view.post_title.text.toString(),
+                view.post_body.text.toString());
                 view.snackbar(view.post_id.text.toString())
             }
         }
@@ -67,6 +73,20 @@ class PostsFragment : Fragment(), KodeinAware {
 //            setHasFixedSize(true)
             this.adapter = mAdapter
         }
+    }
+
+    private fun openCommentsForPost(
+        postId: String,
+        postTitle: String,
+        postBody: String
+    ) {
+
+        val prefs = context?.let { PreferenceProvider(it) }
+        prefs?.savePostId(postId)
+        startActivity(Intent(context?.applicationContext,CommentsActivity::class.java)
+            .putExtra(POSTID,postId)
+            .putExtra(POSTTITLE,postTitle)
+            .putExtra(POSTBODY,postBody))
     }
 
 

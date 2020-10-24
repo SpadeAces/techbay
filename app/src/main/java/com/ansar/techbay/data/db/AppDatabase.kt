@@ -14,6 +14,8 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getPostsDao(): PostDao
 
+    abstract fun getCommentsDao(): CommentsDao
+
     companion object {
 
         @Volatile

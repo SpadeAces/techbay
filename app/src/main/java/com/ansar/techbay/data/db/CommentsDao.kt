@@ -5,15 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.ansar.techbay.data.db.entities.Comments
 import com.ansar.techbay.data.db.entities.Posts
 
 @Dao
-interface PostDao {
+interface CommentsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveAllPosts(posts : List<Posts>)
+    fun saveAllComments(comments : List<Comments>)
 
     @Query("SELECT * FROM Posts")
-    fun getPosts() : LiveData<List<Posts>>
+    fun getComments() : LiveData<List<Comments>>
 
 }
