@@ -12,6 +12,6 @@ class CommentsItem(
     override fun getLayout() = R.layout.item_comment
 
     override fun bind(viewBinding: ItemCommentBinding, position: Int) {
-        viewBinding.
+        viewBinding.setComments(comments)
     }
 }

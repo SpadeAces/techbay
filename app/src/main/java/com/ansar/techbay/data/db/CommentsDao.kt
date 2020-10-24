@@ -14,7 +14,7 @@ interface CommentsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAllComments(comments : List<Comments>)
 
-    @Query("SELECT * FROM Posts")
+    @Query("SELECT * FROM Comments")
     fun getComments() : LiveData<List<Comments>>
 
 }

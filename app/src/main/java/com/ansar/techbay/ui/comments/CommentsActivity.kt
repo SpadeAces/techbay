@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ansar.techbay.R
-import com.ansar.techbay.data.db.entities.Posts
+import com.ansar.techbay.data.db.entities.Comments
 import com.ansar.techbay.databinding.ActivityCommentsBinding
 import com.ansar.techbay.ui.Posts.PostItem
 import com.ansar.techbay.util.Coroutines
@@ -17,16 +17,15 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.android.synthetic.main.activity_comments.progress_bar
-import kotlinx.android.synthetic.main.posts_fragment.*
 import org.kodein.di.generic.instance
 import org.kodein.di.android.kodein
 import org.kodein.di.KodeinAware
 
 class CommentsActivity : AppCompatActivity(), KodeinAware {
+
     override val kodein by kodein()
     private val factory: CommentsViewModelFactory by instance()
 
-    private val POSTID: String = "PostId"
     private val POSTTITLE: String = "PostTitle"
     private val POSTBODY: String = "PostBody"
 
@@ -41,7 +40,6 @@ class CommentsActivity : AppCompatActivity(), KodeinAware {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_comments)
         viewModel = ViewModelProvider(this, factory).get(CommentsViewModel::class.java)
 
-
         val postTitle :  String = intent.getStringExtra(POSTTITLE)
         val postBody :  String = intent.getStringExtra(POSTBODY)
 
@@ -55,24 +53,24 @@ class CommentsActivity : AppCompatActivity(), KodeinAware {
         progress_bar.show()
         viewModel.comments.await().observe(this, Observer {
             progress_bar.hide()
-            initRecyclerView(it.toQuoteItem())
+            initRecyclerView(it.toCommentItem())
         })
     }
-    private fun initRecyclerView(postItem: List<PostItem>) {
+
+    private fun initRecyclerView(commentsItem: List<CommentsItem>) {
         val mAdapter = GroupAdapter<ViewHolder>().apply {
-            addAll(postItem)
+            addAll(commentsItem)
         }
 
         commentsRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-//            setHasFixedSize(true)
             this.adapter = mAdapter
         }
     }
 
-    private fun List<Posts>.toQuoteItem() : List<PostItem>{
+    private fun List<Comments>.toCommentItem() : List<CommentsItem>{
         return this.map {
-            PostItem(it)
+            CommentsItem(it)
         }
     }
 }

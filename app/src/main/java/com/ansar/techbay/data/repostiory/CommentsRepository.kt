@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
-
 @RequiresApi(Build.VERSION_CODES.O)
 class CommentsRepository(
     private val api: MyApi,
@@ -30,28 +29,23 @@ class CommentsRepository(
         }
     }
 
-    suspend fun setComments(): LiveData<List<Posts>> {
+    suspend fun setComments(): LiveData<List<Comments>> {
         return withContext(Dispatchers.IO) {
 
-            fetchComments(prefs.getPostId() as Int)
-            db.getPostsDao().getPosts()
+            fetchComments(prefs.getPostId())
+            db.getCommentsDao().getComments()
         }
     }
 
-
-
     @RequiresApi(Build.VERSION_CODES.O)
-    private suspend fun fetchComments(postId: Int) {
+    private suspend fun fetchComments(postId: String) {
            try {
                 val response = apiRequest { api.getComments(postId) }
                 comments.postValue(response)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
     }
-
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun saveComments(comments: List<Comments>) {

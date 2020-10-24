@@ -15,7 +15,7 @@ interface MyApi {
     suspend fun getPosts() : Response<List<Posts>>
 
     @GET("posts/{id}/comments")
-    suspend fun getComments(@Path("id") id: Int?): Response<List<Comments>>
+    suspend fun getComments(@Path("id") id: String?): Response<List<Comments>>
 
     companion object{
         operator fun invoke(

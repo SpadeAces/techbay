@@ -32,6 +32,6 @@ class MVVMApplication : Application(), KodeinAware {
         bind() from singleton { PostsRepository(instance(), instance(), instance()) }
         bind() from provider{ PostsViewModelFactory(instance()) }
         bind() from singleton { CommentsRepository(instance(),instance(),instance()) }
-        bind() from provider{ CommentsViewModelFactory(instance(),"1") }
+        bind() from provider{ CommentsViewModelFactory(instance()) }
     }
 }
