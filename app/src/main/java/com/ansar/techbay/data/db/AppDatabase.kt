@@ -9,7 +9,8 @@ import com.ansar.techbay.data.db.entities.Posts
 
 @Database(
     entities = [Posts::class, Comments::class],
-    version = 2
+    version = 1,
+    exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
 

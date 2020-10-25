@@ -25,7 +25,6 @@
                 android:id="@+id/post_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{`'`+posts.title+`'`}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:textColor="@color/colorPrimaryDark"
                 tools:text="Success doesn’t just find you. You have to go out and get it." />
@@ -38,7 +37,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="12dp"
-                android:text="@{`-` + posts.body}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="italic" />
@@ -56,7 +54,6 @@
                 android:layout_height="1dp"
                 android:layout_below="@id/post_body"
                 android:layout_marginTop="7dp"
-                android:text="@{``+posts.id}"
                 android:visibility="invisible" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

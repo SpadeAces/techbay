@@ -28,7 +28,7 @@ class PreferenceProvider(
 
     fun savePostId(postId: String){
         preference.edit().putString(
-            KEY_SAVED_AT,
+            KEY_POST_ID,
             postId
         ).apply()
     }

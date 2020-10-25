@@ -44,15 +44,15 @@ class AppRepository(
 
     @RequiresApi(Build.VERSION_CODES.O)
     private suspend fun fetchPosts() {
-        val lastSavedAt = prefs.getLastSavedAt()
-        if (lastSavedAt == null || isFetchNeeded(LocalDateTime.parse(lastSavedAt))) {
+//        val lastSavedAt = prefs.getLastSavedAt()
+//        if (lastSavedAt == null || isFetchNeeded(LocalDateTime.parse(lastSavedAt))) {
             try {
                 val response = apiRequest { api.getPosts() }
                 posts.postValue(response)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }
+//        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
