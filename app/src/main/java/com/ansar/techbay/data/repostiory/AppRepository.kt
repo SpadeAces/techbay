@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ansar.techbay.data.db.AppDatabase
+import com.ansar.techbay.data.db.entities.Comments
 import com.ansar.techbay.data.db.entities.Posts
 import com.ansar.techbay.data.network.MyApi
 import com.ansar.techbay.data.network.SafeApiRequest
@@ -19,12 +20,14 @@ import java.time.temporal.ChronoUnit
 private val MINIMUM_INTERVAL = 6
 
 @RequiresApi(Build.VERSION_CODES.O)
-class PostsRepository(
+class AppRepository(
     private val api: MyApi,
     private val db: AppDatabase,
     private val prefs: PreferenceProvider
 ) : SafeApiRequest() {
 
+
+    //AppRepository
     private val posts = MutableLiveData<List<Posts>>()
     init {
         posts.observeForever {
@@ -62,6 +65,40 @@ class PostsRepository(
         Coroutines.io {
             prefs.savelastSavedAt(LocalDateTime.now().toString())
             db.getPostsDao().saveAllPosts(posts)
+        }
+    }
+
+
+    //Comments
+    private val comments = MutableLiveData<List<Comments>>()
+    init {
+        comments.observeForever {
+            saveComments(it)
+        }
+    }
+
+    suspend fun setComments(): LiveData<List<Comments>> {
+        return withContext(Dispatchers.IO) {
+
+            fetchComments(prefs.getPostId())
+            db.getCommentsDao().getComments(prefs.getPostId().toInt())
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private suspend fun fetchComments(postId: String) {
+        try {
+            val response = apiRequest { api.getComments(postId) }
+            comments.postValue(response)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun saveComments(comments: List<Comments>) {
+        Coroutines.io {
+            db.getCommentsDao().saveAllComments(comments)
         }
     }
 }

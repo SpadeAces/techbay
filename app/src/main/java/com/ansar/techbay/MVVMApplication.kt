@@ -7,8 +7,7 @@ import com.ansar.techbay.data.db.AppDatabase
 import com.ansar.techbay.data.network.MyApi
 import com.ansar.techbay.data.network.NetworkConnectionInterceptor
 import com.ansar.techbay.data.preferences.PreferenceProvider
-import com.ansar.techbay.data.repostiory.CommentsRepository
-import com.ansar.techbay.data.repostiory.PostsRepository
+import com.ansar.techbay.data.repostiory.AppRepository
 import com.ansar.techbay.ui.Posts.PostsViewModelFactory
 import com.ansar.techbay.ui.comments.CommentsViewModelFactory
 import org.kodein.di.Kodein
@@ -29,9 +28,8 @@ class MVVMApplication : Application(), KodeinAware {
         bind() from singleton { MyApi(instance()) }
         bind() from singleton { AppDatabase(instance()) }
         bind() from singleton { PreferenceProvider(instance()) }
-        bind() from singleton { PostsRepository(instance(), instance(), instance()) }
+        bind() from singleton { AppRepository(instance(), instance(), instance()) }
         bind() from provider{ PostsViewModelFactory(instance()) }
-        bind() from singleton { CommentsRepository(instance(),instance(),instance()) }
         bind() from provider{ CommentsViewModelFactory(instance()) }
     }
 }

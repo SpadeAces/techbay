@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.ansar.techbay.data.db.entities.Comments
 import com.ansar.techbay.data.db.entities.Posts
 
 @Database(
-    entities = [Posts::class],
-    version = 1
+    entities = [Posts::class, Comments::class],
+    version = 2
 )
 abstract class AppDatabase : RoomDatabase() {
 

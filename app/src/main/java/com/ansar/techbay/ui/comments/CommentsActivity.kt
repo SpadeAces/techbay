@@ -32,7 +32,6 @@ class CommentsActivity : AppCompatActivity(), KodeinAware {
     private lateinit var binding: ActivityCommentsBinding
     private lateinit var viewModel: CommentsViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
